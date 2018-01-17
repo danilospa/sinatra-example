@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './app/clients/github/issues'
+require './app/resources/issue'
 
 class IssuesController < Application
   before '*' do
@@ -10,7 +11,9 @@ class IssuesController < Application
   get '/issues' do
     begin
       issues = Clients::Github::Issues.new.all(request.params)
-      { issues: issues }.to_json
+      {
+        issues: issues.map { |issue| Resources::Issue.new(issue).to_h }
+      }.to_json
     rescue SocketError
       halt 424, { status: 'GITHUB_DEPENDENCY_FAILED' }.to_json
     end

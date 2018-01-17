@@ -10,7 +10,7 @@ RSpec.describe IssuesController do
     context 'when user is logged in' do
       before do
         stub_request(:get, "#{Clients::Github::BASE_URL}#{Clients::Github::Issues::PATH}?param=value")
-          .to_return(body: 'issues list')
+          .to_return(body: [{ id: 1 }].to_json)
         Infrastructure::RedisSession.set('auth hash', 'value')
         get '/issues', { param: 'value' }, 'HTTP_AUTHORIZATION' => 'auth hash'
       end
@@ -20,7 +20,7 @@ RSpec.describe IssuesController do
       end
 
       it 'returns correct body' do
-        expect(body).to eq 'issues' => 'issues list'
+        expect(body).to eq 'issues' => [{ 'id' => 1 }]
       end
     end
 

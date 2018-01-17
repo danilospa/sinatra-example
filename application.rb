@@ -5,6 +5,7 @@ require 'sinatra/reloader'
 require 'dotenv/load'
 require './app/infrastructure/redis_session'
 require './app/helpers/authorization'
+require './app/extensions/hash'
 
 Infrastructure::RedisSession.connect
 
