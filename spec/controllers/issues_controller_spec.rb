@@ -9,9 +9,10 @@ RSpec.describe IssuesController do
   describe 'get /issues' do
     context 'when user is logged in' do
       before do
-        stub_request(:get, "#{Clients::Github::BASE_URL}/repos/Evino/vidal/issues").to_return(body: 'issues list')
+        stub_request(:get, "#{Clients::Github::BASE_URL}#{Clients::Github::Issues::PATH}?param=value")
+          .to_return(body: 'issues list')
         Infrastructure::RedisSession.set('auth hash', 'value')
-        get '/issues', nil, 'HTTP_AUTHORIZATION' => 'auth hash'
+        get '/issues', { param: 'value' }, 'HTTP_AUTHORIZATION' => 'auth hash'
       end
 
       it 'returns status code 200' do
@@ -25,6 +26,29 @@ RSpec.describe IssuesController do
 
     context 'when user is not logged in' do
       include_examples 'user not logged in', :get, '/issues'
+    end
+  end
+
+  describe 'post /issues' do
+    context 'when user is logged in' do
+      before do
+        stub_request(:post, Clients::Github::BASE_URL + Clients::Github::Issues::PATH)
+          .to_return(body: { field: 'value' }.to_json)
+        Infrastructure::RedisSession.set('auth hash', 'value')
+        post '/issues', { param: 'value' }, 'HTTP_AUTHORIZATION' => 'auth hash'
+      end
+
+      it 'returns status code 200' do
+        expect(last_response.status).to eq 200
+      end
+
+      it 'returns correct body' do
+        expect(body).to eq 'field' => 'value'
+      end
+    end
+
+    context 'when user is not logged in' do
+      include_examples 'user not logged in', :post, '/issues'
     end
   end
 end
