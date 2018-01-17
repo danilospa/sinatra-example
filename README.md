@@ -23,3 +23,14 @@ Execute `bundle exec rubocop`.
 ### Running tests
 
 Execute `bundle exec rspec`.
+
+### Running with docker
+
+Just build the image and run it:
+```
+docker build -t poc-ruby .
+docker run -it -p 9292:9292 -e APP_ENV=production \
+                            -e REDIS_URL=<REDIS_HOST> \
+                            -e GITHUB_URL=https://api.github.com \
+                            -e GITHUB_AUTH_TOKEN=<your_github_token> poc-ruby
+```

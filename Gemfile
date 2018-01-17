@@ -2,6 +2,7 @@
 
 gem 'dotenv', '2.2.1'
 gem 'httparty', '0.15.6'
+gem 'puma', '3.11.0'
 gem 'redis', '4.0.1'
 gem 'sinatra', '2.0.0'
 gem 'sinatra-contrib'
