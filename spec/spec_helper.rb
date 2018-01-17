@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require './application'
 require 'rack/test'
 
 RSpec.configure do |config|
