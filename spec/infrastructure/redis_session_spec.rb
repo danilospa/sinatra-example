@@ -10,6 +10,6 @@ RSpec.describe Infrastructure::RedisSession do
   end
 
   it 'sets correct redis url' do
-    expect(Infrastructure::RedisSession.url).to eq "#{ENV['REDIS_URL']}/10"
+    expect(Infrastructure::RedisSession.url).to eq "redis://#{ENV['REDIS_URL']}/10"
   end
 end

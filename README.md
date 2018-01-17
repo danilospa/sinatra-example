@@ -7,6 +7,10 @@
 ### How to setup
 
 First of all, make sure you have the correct version of Ruby installed. Then, execute `bundle i`.
+Afterwards, copy the `.env.example` file and fill the required information.
+```
+cp .env.example .env
+```
 
 ### How to run
 

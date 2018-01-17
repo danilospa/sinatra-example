@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples 'user not logged in' do |path|
+RSpec.shared_examples 'user not logged in' do |method, path|
   before do
     Infrastructure::RedisSession.del('auth hash')
-    get path, nil, 'HTTP_AUTHORIZATION' => 'auth hash'
+    send(method, path, nil, 'HTTP_AUTHORIZATION' => 'auth hash')
   end
 
   it 'returns status code 401' do

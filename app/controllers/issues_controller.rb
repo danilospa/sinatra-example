@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './app/services/session'
+require './app/clients/github/issues'
 
 class IssuesController < Application
   before '*' do
@@ -8,6 +8,7 @@ class IssuesController < Application
   end
 
   get '/issues' do
-    { status: 'OK' }.to_json
+    issues = Clients::Github::Issues.new.all(request.params)
+    { issues: issues }.to_json
   end
 end
