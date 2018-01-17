@@ -27,6 +27,14 @@ RSpec.describe IssuesController do
     context 'when user is not logged in' do
       include_examples 'user not logged in', :get, '/issues'
     end
+
+    context 'when there is a connection error with github' do
+      before do
+        allow_any_instance_of(Clients::Github::Issues).to receive(:all).and_raise(SocketError)
+      end
+
+      include_examples 'github dependency fail', :get, '/issues'
+    end
   end
 
   describe 'post /issues' do
@@ -49,6 +57,14 @@ RSpec.describe IssuesController do
 
     context 'when user is not logged in' do
       include_examples 'user not logged in', :post, '/issues'
+    end
+
+    context 'when there is a connection error with github' do
+      before do
+        allow_any_instance_of(Clients::Github::Issues).to receive(:create).and_raise(SocketError)
+      end
+
+      include_examples 'github dependency fail', :post, '/issues'
     end
   end
 end

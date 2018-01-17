@@ -8,12 +8,20 @@ class IssuesController < Application
   end
 
   get '/issues' do
-    issues = Clients::Github::Issues.new.all(request.params)
-    { issues: issues }.to_json
+    begin
+      issues = Clients::Github::Issues.new.all(request.params)
+      { issues: issues }.to_json
+    rescue SocketError
+      halt 424, { status: 'GITHUB_DEPENDENCY_FAILED' }.to_json
+    end
   end
 
   post '/issues' do
-    response = Clients::Github::Issues.new.create(request.params)
-    response.to_json
+    begin
+      response = Clients::Github::Issues.new.create(request.params)
+      response.to_json
+    rescue SocketError
+      halt 424, { status: 'GITHUB_DEPENDENCY_FAILED' }.to_json
+    end
   end
 end
