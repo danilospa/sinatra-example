@@ -1,8 +1,15 @@
-## Ruby example project
+## Ruby example project with Sinatra
+
+### Description
+
+This project was built to illustrate a simple application with Sinatra framework.  
+The app serves as a proxy to two Github endpoints for a specific repository: list issues and create an issue.  
+It has a security layer that reads the Authorization header and verifies if that value is present on Redis.
 
 ### Dependencies
 
 - Ruby 2.4.1
+- Redis
 
 ### Ruby installation
 
