@@ -4,9 +4,23 @@
 
 - Ruby 2.4.1
 
+### Ruby installation
+
+I recommend to use rbenv to manager Ruby versions on your machine. You can follow the instructions [here](https://github.com/rbenv/rbenv#installation).  
+Then, install Ruby 2.4.1.
+```
+rbenv install 2.4.1
+rbenv global 2.4.1
+```
+
 ### How to setup
 
-First of all, make sure you have the correct version of Ruby installed. Then, execute `bundle i`.
+Install bundle gem and use it to install project dependencies.
+```
+gem install bundle
+bundle i
+```
+
 Afterwards, copy the `.env.example` file and fill the required information.
 ```
 cp .env.example .env
