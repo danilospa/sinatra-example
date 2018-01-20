@@ -56,10 +56,15 @@ docker run -it -p 9292:9292 -e APP_ENV=production \
                             -e GITHUB_AUTH_TOKEN=<your_github_token> poc-ruby
 ```
 
-### Instruction
+### Examples
 
+List issues:
 ```
 curl localhost:9292/issues -H 'Authorization: <token>'
 curl localhost:9292/issues?state=closed -H 'Authorization: <token>'
+```
+
+Create issue:
+```
 curl -X POST localhost:9292/issues -H 'Authorization: <token>' -H 'Content-type: application/json' --data '{"title":"teste"}'
 ```
